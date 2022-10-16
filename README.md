@@ -7,6 +7,10 @@
 
 [![flake8](https://img.shields.io/badge/linter-flake8-green)](https://flake8.pycqa.org/)
 
+Portage QGIS du programme [french-locality-name-shortener](https://github.com/bchartier/french-locality-name-shortener/tree/develop) de Benjamin et Julie CHARTIER permettant de créer des noms contractés de communes et arrondissements français.
+
+Le plugin ajoute une fonction dans le moteur d'expression et un algorithme dans la boîte à outil.
+
 ## Generated options
 
 ### Plugin

@@ -3,16 +3,15 @@ name=French Locality Name Shortener
 about=Ce programme crée les noms contractés des communes françaises.
 category=Vector
 hasProcessingProvider=yes
-description=Ce programme crée les noms contractés des communes françaises.
+description=Plugin permettant de créer des noms contractés de communes et arrondissements français. Le plugin ajoute une fonction dans le moteur d'expression et un algorithme dans la boîte à outil.
 icon=resources/images/default_icon.png
 tags=municipality,label
 
 # credits and contact
 author=Benjamin CHARTIER, Julie CHARTIER, Jean-Baptiste DESBAS
-email=qgis@company.com
-homepage=https://github.com/bchartier/french-locality-name-shortener/
-repository=https://github.com/bchartier/french-locality-name-shortener/
-tracker=https://github.com/bchartier/french-locality-name-shortener//issues
+homepage=https://github.com/jbdesbas/qgis-flns
+repository=https://github.com/jbdesbas/qgis-flns
+tracker=https://github.com/jbdesbas/qgis-flns
 
 # experimental flag
 deprecated=False
