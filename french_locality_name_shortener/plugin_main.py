@@ -26,21 +26,25 @@ from french_locality_name_shortener.toolbelt import PlgLogger, PlgTranslator, Na
 
 
 @qgsfunction(args='auto', group='French Locality Name Shortener')
-def short_name(string, very_short=False):
+def short_name(string, feature, parent):
     """
-    Nom raccourcis de la commune
+    Nom court de la commune
     <h4>Syntax</h4>
-    <p><strong>short_name</strong>(<i>name</i>[,<i>very_short=False</i>])
-    <h4>Arguments</h4>
-    <dl>
-    <dt><i>name</i></dt><dd>Le nom complet de la commune</dd>
-    <dt><i>very_short</i></dt><dd>Si <i>vrai</i>, la fonction renvoie le nom très court de la commune</dd>
-    </dl>
+    <p><strong>short_name</strong>(<i>name</i>)
     """
-    if very_short :
-        return NameProcessor(string).get_very_short_name()
-    else :
-        return NameProcessor(string).get_short_name()
+    return NameProcessor(string).get_short_name()
+
+
+@qgsfunction(args='auto', group='French Locality Name Shortener')
+def very_short_name(string, feature, parent):
+    """
+    Nom très court de la commune
+    <h4>Syntax</h4>
+    <p><strong>very_short_name</strong>(<i>name</i>)
+    """
+    return NameProcessor(string).get_very_short_name()
+
+
 
 class FrenchLocalityNameShortenerPlugin:
     def __init__(self, iface: QgisInterface):
@@ -95,6 +99,7 @@ class FrenchLocalityNameShortenerPlugin:
 
         # -- Function
         QgsExpression.registerFunction(short_name)
+        QgsExpression.registerFunction(very_short_name)
 
         # -- Processing
         self.initProcessing()
@@ -118,6 +123,7 @@ class FrenchLocalityNameShortenerPlugin:
 
         # -- Unregister functions
         QgsExpression.unregisterFunction('short_name')
+        QgsExpression.unregisterFunction('very_short_name')
 
         # remove actions
         del self.action_settings
