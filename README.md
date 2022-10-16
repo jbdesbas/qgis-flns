@@ -4,6 +4,8 @@ Portage QGIS du programme [french-locality-name-shortener](https://github.com/bc
 
 Le plugin ajoute une fonction dans le moteur d'expression et un algorithme dans la boîte à outil.
 
+![Screenshot showing shortened label](img/screenshort_label.png)
+
 ## TODO
 - [x] Fonction dans le moteur d'expression
 - [ ] Algorithme dans la toolbox
