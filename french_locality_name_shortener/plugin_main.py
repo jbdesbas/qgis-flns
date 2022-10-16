@@ -25,12 +25,22 @@ from french_locality_name_shortener.toolbelt import PlgLogger, PlgTranslator, Na
 # ##################################
 
 
-@qgsfunction(args='auto', group='String')
-def short_name(string, feature, parent):
+@qgsfunction(args='auto', group='French Locality Name Shortener')
+def short_name(string, very_short=False):
     """
     Nom raccourcis de la commune
+    <h4>Syntax</h4>
+    <p><strong>short_name</strong>(<i>name</i>[,<i>very_short=False</i>])
+    <h4>Arguments</h4>
+    <dl>
+    <dt><i>name</i></dt><dd>Le nom complet de la commune</dd>
+    <dt><i>very_short</i></dt><dd>Si <i>vrai</i>, la fonction renvoie le nom très court de la commune</dd>
+    </dl>
     """
-    return NameProcessor(string).get_short_name()
+    if very_short :
+        return NameProcessor(string).get_very_short_name()
+    else :
+        return NameProcessor(string).get_short_name()
 
 class FrenchLocalityNameShortenerPlugin:
     def __init__(self, iface: QgisInterface):
