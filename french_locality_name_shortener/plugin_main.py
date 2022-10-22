@@ -14,7 +14,6 @@ from qgis.utils import showPluginHelp, qgsfunction
 
 # project
 from french_locality_name_shortener.__about__ import __title__
-from french_locality_name_shortener.gui.dlg_settings import PlgOptionsFactory
 
 from french_locality_name_shortener.processing import FrenchLocalityNameShortenerProvider
 
@@ -70,36 +69,6 @@ class FrenchLocalityNameShortenerPlugin:
         self.tr = plg_translation_mngr.tr
 
     def initGui(self):
-        """Set up plugin UI elements."""
-
-        # settings page within the QGIS preferences menu
-        self.options_factory = PlgOptionsFactory()
-        self.iface.registerOptionsWidgetFactory(self.options_factory)
-
-        # -- Actions
-        self.action_help = QAction(
-            QIcon(":/images/themes/default/mActionHelpContents.svg"),
-            self.tr("Help", context="FrenchLocalityNameShortenerPlugin"),
-            self.iface.mainWindow(),
-        )
-        self.action_help.triggered.connect(
-            lambda: showPluginHelp(filename="resources/help/index")
-        )
-
-        self.action_settings = QAction(
-            QgsApplication.getThemeIcon("console/iconSettingsConsole.svg"),
-            self.tr("Settings"),
-            self.iface.mainWindow(),
-        )
-        self.action_settings.triggered.connect(
-            lambda: self.iface.showOptionsDialog(
-                currentPage="mOptionsPage{}".format(__title__)
-            )
-        )
-
-        # -- Menu
-        self.iface.addPluginToMenu(__title__, self.action_settings)
-        self.iface.addPluginToMenu(__title__, self.action_help)
 
         # -- Function
         QgsExpression.registerFunction(short_name)
@@ -114,24 +83,12 @@ class FrenchLocalityNameShortenerPlugin:
         QgsApplication.processingRegistry().addProvider(self.provider)
 
     def unload(self):
-        """Cleans up when plugin is disabled/uninstalled."""
-        # -- Clean up menu
-        self.iface.removePluginMenu(__title__, self.action_help)
-        self.iface.removePluginMenu(__title__, self.action_settings)
-
-        # -- Clean up preferences panel in QGIS settings
-        self.iface.unregisterOptionsWidgetFactory(self.options_factory)
-
         # -- Unregister processing
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
         # -- Unregister functions
         QgsExpression.unregisterFunction('short_name')
         QgsExpression.unregisterFunction('very_short_name')
-
-        # remove actions
-        del self.action_settings
-        del self.action_help
 
     def run(self):
         """Main process.
