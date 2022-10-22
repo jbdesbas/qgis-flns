@@ -10,43 +10,18 @@ from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
-from qgis.utils import showPluginHelp, qgsfunction
+from qgis.utils import showPluginHelp
 
 # project
 from french_locality_name_shortener.__about__ import __title__
 
 from french_locality_name_shortener.processing import FrenchLocalityNameShortenerProvider
 
-from french_locality_name_shortener.toolbelt import PlgLogger, PlgTranslator, NameProcessor
+from french_locality_name_shortener.toolbelt import PlgLogger, PlgTranslator, PlgFunction
 
 # ############################################################################
 # ########## Classes ###############
 # ##################################
-
-
-@qgsfunction(args='auto', group='French Locality Name Shortener')
-def short_name(string, feature, parent):
-    """
-    Nom court de la commune
-    <h4>Syntax</h4>
-    <p><strong>short_name</strong>(<i>name</i>)
-    <h4>Example usage</h4>
-    <p>short_name('Saint-Paul-de-Vence') -> 'St-Paul-de-V.'
-    """
-    return NameProcessor(string).get_short_name()
-
-
-@qgsfunction(args='auto', group='French Locality Name Shortener')
-def very_short_name(string, feature, parent):
-    """
-    Nom très court de la commune
-    <h4>Syntax</h4>
-    <p><strong>very_short_name</strong>(<i>name</i>)
-    <h4>Example usage</h4>
-    <p>very_short_name('Saint-Paul-de-Vence') -> 'St-Paul'
-    """
-    return NameProcessor(string).get_very_short_name()
-
 
 
 class FrenchLocalityNameShortenerPlugin:
@@ -71,8 +46,8 @@ class FrenchLocalityNameShortenerPlugin:
     def initGui(self):
 
         # -- Function
-        QgsExpression.registerFunction(short_name)
-        QgsExpression.registerFunction(very_short_name)
+        QgsExpression.registerFunction(PlgFunction.short_name) # A factoriser dans expression_functions.py
+        QgsExpression.registerFunction(PlgFunction.very_short_name)
 
         # -- Processing
         self.initProcessing()
@@ -87,7 +62,7 @@ class FrenchLocalityNameShortenerPlugin:
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
         # -- Unregister functions
-        QgsExpression.unregisterFunction('short_name')
+        QgsExpression.unregisterFunction('short_name') # A factoriser dans expression_functions.py
         QgsExpression.unregisterFunction('very_short_name')
 
     def run(self):

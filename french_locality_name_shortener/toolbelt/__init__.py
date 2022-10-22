@@ -4,3 +4,4 @@ from .preferences import PlgOptionsManager  # noqa: F401
 from .translator import PlgTranslator  # noqa: F401
 
 from .one_name_shortener import NameProcessor
+from .expression_functions import PlgFunction
