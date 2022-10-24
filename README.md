@@ -10,6 +10,19 @@ Le plugin ajoute une fonction dans le moteur d'expression et un algorithme dans 
 - [x] Fonction dans le moteur d'expression
 - [ ] Algorithme dans la toolbox
 
+
+## Auto-name
+``` sql
+ CASE 
+    WHEN (bounds_height( $geometry) / @map_scale) * 250 > length("NOM_COM")  
+      THEN "NOM_COM"
+    WHEN (bounds_height( $geometry) / @map_scale) * 250 > length(short_name("NOM_COM"))
+      THEN short_name("NOM_COM")
+    ELSE very_short_name("NOM_COM") 
+END
+-- Emprique, relation entre longueur de l'étiquette et largeur de la bbox/echelle à préciser
+```
+
 ----
 
 ## License
